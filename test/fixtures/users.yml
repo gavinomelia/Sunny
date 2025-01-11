@@ -1,0 +1,7 @@
+one:
+  id: 1
+  email: 'user1@example.com'
+  crypted_password: <%= Sorcery::CryptoProviders::BCrypt.encrypt("password123") %>
+  salt: <%= SecureRandom.hex(8) %>
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
