@@ -24,7 +24,6 @@ class UserTest < ActiveSupport::TestCase
 
   test "fail authentication with invalid credentials" do
     user = User.find_by(email: 'user1@example.com')
-    refute Sorcery::CryptoProviders::BCrypt.matches?(user.crypted_password, "wrongpassword"), "Password should not match"
+    assert_not Sorcery::CryptoProviders::BCrypt.matches?(user.crypted_password, "wrongpassword"), "Password should not match"
   end
-
 end

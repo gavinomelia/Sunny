@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<h1>Your Locations: </h1>
+<% if @locations.any? %>
+  <ul>
+    <% @locations.each do |location| %>
+      <li>
+        <strong><%= location.name %></strong> 
+        (<%= location.latitude %>, <%= location.longitude %>)
+        <%= link_to 'Get Forecast', forecast_location_path(location), class: 'btn' %>
+        <%= link_to 'Edit', edit_location_path(location), class: 'btn' %>
+        <%= link_to 'Delete', location_path(location), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+      </li>
+    <% end %>
+  </ul>
+
+<% else %>
+  <h1>Please add a location to see your forecast.</h1>
+<% end %>
+
+<%= link_to 'Add Location', new_location_path, class: 'btn' %>
+</html>

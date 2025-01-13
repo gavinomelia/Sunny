@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  
+
   def new
   end
 
@@ -12,10 +12,8 @@ class SessionsController < ApplicationController
     end
   end
 
-   def destroy
+  def destroy
     logout
     redirect_to root_path, notice: 'Logged out successfully.'
   end
 end
-
-
