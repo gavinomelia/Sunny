@@ -5,7 +5,14 @@ class LocationsController < ApplicationController
     @locations = current_user.locations
   end
 
-  def show
+  def forecast
+    @forecast = ForecastService.fetch_forecast(@location.latitude, @location.longitude)
+
+    if @forecast
+      render :show
+    else
+      redirect_to locations_path, alert: 'Unable to fetch forecast. Try again later.'
+    end
   end
 
   def new
@@ -17,7 +24,7 @@ class LocationsController < ApplicationController
     if @location.save
       redirect_to locations_path, notice: 'Location saved successfully.'
     else
-      render :new, status: :unprocessable_entity
+      render :index, alert: "Failed to add location."
     end
   end
 
@@ -28,17 +35,14 @@ class LocationsController < ApplicationController
     if @location.update(location_params)
       redirect_to locations_path, notice: 'Location updated successfully.'
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, alert: "Unable to update location."
     end
   end
 
   def destroy
+    @location = current_user.locations.find(params[:id])
     @location.destroy
     redirect_to locations_path, notice: 'Location deleted successfully.'
-  end
-
-  def forecast
-    @forecast = ForecastService.get_forecast(@location.latitude, @location.longitude)
   end
 
   private

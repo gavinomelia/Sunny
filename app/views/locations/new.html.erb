@@ -1,9 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Add a New Location</title>
-  </head>
-  <h1>Add a New Location</h1>
-</html>
+<h1 class="text-xl font-bold mb-4">Add a New Location</h1>
 
+<%= form_with model: @location, local: true, class: "space-y-4" do |form| %>
+  <div class="flex flex-col">
+    <%= form.label :name, "Location Name", class: "font-semibold mb-2" %>
+    <%= form.text_field :name, class: "w-full p-2 border border-gray-300 rounded", placeholder: "e.g., New York City" %>
+  </div>
+
+  <div class="flex flex-col">
+    <%= form.label :latitude, "Latitude", class: "font-semibold mb-2" %>
+    <%= form.text_field :latitude, class: "w-full p-2 border border-gray-300 rounded", placeholder: "e.g., 40.7128" %>
+  </div>
+
+  <div class="flex flex-col">
+    <%= form.label :longitude, "Longitude", class: "font-semibold mb-2" %>
+    <%= form.text_field :longitude, class: "w-full p-2 border border-gray-300 rounded", placeholder: "e.g., -74.0060" %>
+  </div>
+
+  <div class="flex justify-end">
+    <%= form.submit "Save Location", class: "bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700" %>
+  </div>
+<% end %>
+
+<%= link_to "Back to Locations", locations_path, class: "text-blue-500 hover:underline mt-4 block" %>
 
