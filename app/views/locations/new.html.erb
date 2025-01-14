@@ -1,5 +1,7 @@
 <h1 class="text-xl font-bold mb-4">Add a New Location</h1>
 
+<%= button_to "Use My Current Location", current_location_forecast_path, method: :get, class: "btn btn-primary" %>
+
 <%= form_with model: @location, local: true, class: "space-y-4" do |form| %>
   <div class="flex flex-col">
     <%= form.label :name, "Location Name", class: "font-semibold mb-2" %>
