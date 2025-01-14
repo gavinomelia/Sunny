@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_action :set_location, only: [:show, :edit, :update, :destroy, :forecast]
+  before_action :set_location, only: [ :show, :edit, :update, :destroy, :forecast ]
 
   def index
     @locations = current_user.locations
@@ -11,7 +11,7 @@ class LocationsController < ApplicationController
     if @forecast
       render :show
     else
-      redirect_to locations_path, alert: 'Unable to fetch forecast. Try again later.'
+      redirect_to locations_path, alert: "Unable to fetch forecast. Try again later."
     end
   end
 
@@ -22,7 +22,7 @@ class LocationsController < ApplicationController
   def create
     @location = current_user.locations.build(location_params)
     if @location.save
-      redirect_to locations_path, notice: 'Location saved successfully.'
+      redirect_to locations_path, notice: "Location saved successfully."
     else
       render :index, alert: "Failed to add location."
     end
@@ -33,7 +33,7 @@ class LocationsController < ApplicationController
 
   def update
     if @location.update(location_params)
-      redirect_to locations_path, notice: 'Location updated successfully.'
+      redirect_to locations_path, notice: "Location updated successfully."
     else
       render :edit, alert: "Unable to update location."
     end
@@ -42,7 +42,7 @@ class LocationsController < ApplicationController
   def destroy
     @location = current_user.locations.find(params[:id])
     @location.destroy
-    redirect_to locations_path, notice: 'Location deleted successfully.'
+    redirect_to locations_path, notice: "Location deleted successfully."
   end
 
   private
@@ -55,4 +55,3 @@ class LocationsController < ApplicationController
     params.require(:location).permit(:name, :latitude, :longitude)
   end
 end
-
