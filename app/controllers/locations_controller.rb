@@ -78,7 +78,53 @@ class LocationsController < ApplicationController
     end
   end
 
+  def geocode_address
+    address = params[:address]
+    if address.blank?
+      flash[:alert] = "Please provide a valid address."
+      return redirect_to locations_path
+    end
+
+    location_data = fetch_location_data(address)
+
+    if location_data.nil? || location_data['error']
+      handle_geocode_error(location_data)
+      return redirect_to locations_path
+    end
+
+    latitude = location_data['latt']
+    longitude = location_data['longt']
+    location_name = location_data.dig("standard", "addresst") || location_data.dig("standard", "city") || "Unknown Address"
+
+    save_location(latitude, longitude, location_name.capitalize)
+    redirect_to locations_path
+  end
+
   private
+
+  def fetch_location_data(address)
+    api_url = URI("https://geocode.xyz/#{URI.encode_www_form_component(address)}?json=1&auth=#{Rails.application.credentials.geocode_api_key}")
+    response = Net::HTTP.get(api_url)
+    JSON.parse(response)
+  rescue JSON::ParserError, StandardError => e
+    Rails.logger.error "Failed to fetch or parse location data: #{e.message}"
+    nil
+  end
+
+  def handle_geocode_error(location_data)
+    error_message = location_data&.dig('error', 'description') || "Unable to geocode the address. Please try again."
+    flash[:alert] = "Error: #{error_message}"
+  end
+
+  def save_location(latitude, longitude, location_name)
+    location = current_user.locations.build(name: location_name, latitude: latitude, longitude: longitude)
+
+    if location.save
+      flash[:notice] = "Location successfully saved!"
+    else
+      flash[:alert] = "Unable to save location. #{location.errors.full_messages.to_sentence}"
+    end
+  end
 
   def set_location
     @location = current_user.locations.find(params[:id])

@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     member do
       get :forecast
     end
+    collection do
+      post :geocode_address
+    end
   end
 
   get "current_location_forecast", to: "locations#current_location_forecast", as: :current_location_forecast
