@@ -1,22 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<h1>Your Locations:</h1>
-<% if @locations.any? %>
-  <ul>
-    <% @locations.each do |location| %>
-      <li>
-        <strong><%= location.name %></strong> 
-        (<%= location.latitude %>, <%= location.longitude %>)
-        <%= link_to 'Get Forecast', forecast_location_path(location) %>
-        <%= link_to 'Delete', location_path(location), data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to delete this recipe? Deleting a recipe cannot be undone.' }, method: :delete %>
+<body class="bg-gray-100 text-gray-800 font-sans">
+  <div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold text-blue-600 mb-6">Your Locations</h1>
 
-      </li>
+    <% if @locations.any? %>
+      <ul class="space-y-4">
+        <% @locations.each do |location| %>
+          <li class="bg-white shadow-md p-4 rounded-lg flex justify-between items-center">
+            <div>
+              <strong class="text-lg"><%= location.name %></strong>
+              <p class="text-sm text-gray-500">
+                (<%= location.latitude %>, <%= location.longitude %>)
+              </p>
+            </div>
+            <div class="space-x-3">
+              <%= link_to 'Get Forecast', forecast_location_path(location), class: 'bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md' %>
+              <%= link_to 'Delete', location_path(location), data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to delete this location? This action cannot be undone.' }, method: :delete, class: 'bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md' %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg shadow-md">
+        <h2 class="text-lg font-semibold">No Locations Found</h2>
+        <p>Please add a location to see your forecast.</p>
+      </div>
     <% end %>
-  </ul>
 
-<% else %>
-  <h1>Please add a location to see your forecast.</h1>
-<% end %>
-
-<%= link_to 'Add Location', new_location_path %>
-</html>
+    <div class="mt-6">
+      <%= link_to 'Add Location', new_location_path, class: 'bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md shadow-md' %>
+    </div>
+  </div>
+</body>
