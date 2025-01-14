@@ -23,7 +23,20 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+ <body class="min-h-screen flex flex-col bg-gray-100">
+    <header class="bg-blue-600 text-white py-4">
+      <div class="container mx-auto flex justify-between items-center px-4">
+        <%= link_to "Sunny", root_path, class: "text-2xl font-bold" %>
+        <nav>
+          <% if current_user %>
+            <%= link_to 'Logout', logout_path, method: :delete, class: 'text-white hover:underline' %>
+          <% else %>
+            <%= link_to 'Login', login_path, class: 'text-white hover:underline' %>
+          <% end %>
+        </nav>
+      </div>
+    </header>
+
     <div class="flash-messages">
       <% flash.each do |key, message| %>
         <div class="p-4 mb-4 text-sm rounded-lg <%= key == 'notice' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
@@ -31,7 +44,9 @@
         </div>
       <% end %>
     </div>
-    <main class="container mx-auto mt-28 px-5 flex">
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-5">
       <%= yield %>
     </main>
   </body>
