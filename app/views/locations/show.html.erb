@@ -5,26 +5,38 @@
   <div class="container mx-auto px-4 py-8">
     <h1 class="text-3xl font-bold text-center mb-6">Forecast for <%= @location.name %></h1>
 
-    <table class="min-w-full table-auto border-collapse border border-gray-300 mb-6">
-      <thead>
-        <tr class="bg-gray-200">
-          <th class="border border-gray-300 p-2">Date</th>
-          <th class="border border-gray-300 p-2">Max Temp (°F)</th>
-          <th class="border border-gray-300 p-2">Min Temp (°F)</th>
-          <th class="border border-gray-300 p-2">Precipitation Probability (%)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @forecast['daily']['time'].each_with_index do |date, index| %>
-          <tr class="<%= 'bg-gray-100' if index.even? %>">
-            <td class="border border-gray-300 p-2"><%= date %></td>
-            <td class="border border-gray-300 p-2"><%= @forecast['daily']['temperature_2m_max'][index] %>°F</td>
-            <td class="border border-gray-300 p-2"><%= @forecast['daily']['temperature_2m_min'][index] %>°F</td>
-            <td class="border border-gray-300 p-2"><%= @forecast['daily']['precipitation_probability_max'][index] %>%</td>
+      <!-- Current Conditions -->
+      <div class="mb-6 p-4 border rounded shadow bg-gray-50">
+        <h2 class="text-xl font-bold text-center mb-4">Current Conditions</h2>
+        <div class="flex justify-center items-center gap-6">
+          <div>
+            <p class="text-lg"><strong>Temperature:</strong> <%= @current_conditions['temperature_2m'] %>°F</p>
+            <p class="text-lg"><strong>Current Chance of Precipitation:</strong> <%= @current_conditions['precipitation'] %>%</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7-day Forecast -->
+      <table class="min-w-full table-auto border-collapse border border-gray-300 mb-6">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="border border-gray-300 p-2">Date</th>
+            <th class="border border-gray-300 p-2">Max Temp (°F)</th>
+            <th class="border border-gray-300 p-2">Min Temp (°F)</th>
+            <th class="border border-gray-300 p-2">Precipitation Probability (%)</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @forecast['daily']['time'].each_with_index do |date, index| %>
+            <tr class="<%= 'bg-gray-100' if index.even? %>">
+              <td class="border border-gray-300 p-2"><%= date %></td>
+              <td class="border border-gray-300 p-2"><%= @forecast['daily']['temperature_2m_max'][index] %>°F</td>
+              <td class="border border-gray-300 p-2"><%= @forecast['daily']['temperature_2m_min'][index] %>°F</td>
+              <td class="border border-gray-300 p-2"><%= @forecast['daily']['precipitation_probability_max'][index] %>%</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
 
     <%= link_to "Back to Locations", locations_path, class: "text-blue-500 hover:underline mt-4 block text-center" %>
   </div>

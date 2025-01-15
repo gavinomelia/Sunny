@@ -11,6 +11,7 @@ class LocationsController < ApplicationController
     @forecast = ForecastService.fetch_forecast(@location.latitude, @location.longitude)
 
     if @forecast
+      @current_conditions = @forecast['current']
       render :show
     else
       redirect_to locations_path, alert: "Unable to fetch forecast. Try again later."
