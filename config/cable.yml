@@ -1,14 +1,8 @@
-# config/cable.yml
-
 development:
-  adapter: disabled
-  # Disables Action Cable in development
+  adapter: async
 
 test:
   adapter: test
-  # Retain the test adapter if needed
 
 production:
-  adapter: disabled
-  # Disables Action Cable in production
-
+  adapter: async
