@@ -12,6 +12,7 @@ class LocationsController < ApplicationController
 
     if @forecast
       @current_conditions = @forecast['current']
+      @chart_url = generate_chart_url(@forecast)
       render :show
     else
       redirect_to locations_path, alert: "Unable to fetch forecast. Try again later."
@@ -102,6 +103,31 @@ class LocationsController < ApplicationController
   end
 
   private
+
+  def generate_chart_url(forecast)
+    max_temps = forecast['daily']['temperature_2m_max'].join(',')
+    min_temps = forecast['daily']['temperature_2m_min'].join(',')
+    dates = forecast['daily']['time'].map { |date| Date.parse(date).strftime('%b %d') }
+
+
+    base_url = "https://image-charts.com/chart"
+    query_params = {
+      chbh: 'a',
+      chbr: '10',
+      chco: 'fdb45c,1869b7',
+      chd: "t:#{max_temps}|#{min_temps}",
+      chds: '-20,120', 
+      chm: 'N,000000,0,,10|N,000000,1,,10', 
+      chma: '0,0,10,10',
+      chs: '900x350',
+      cht: 'bvg',
+      chxs: '0,000000,12,0,_,000000|1,000000,12,0,_',
+      chxt: 'x',
+      chxl: "0:|#{dates.join('|')}|1"
+    }
+
+    "#{base_url}?#{query_params.to_query}"
+  end
 
   def fetch_location_data(address)
     api_url = URI("https://geocode.xyz/#{URI.encode_www_form_component(address)}?json=1&auth=#{Rails.application.credentials.geocode_api_key}")
