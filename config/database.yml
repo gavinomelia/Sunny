@@ -4,6 +4,11 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
+sqlite: &sqlite
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
 development:
   <<: *default
   database: sunny_development
@@ -20,15 +25,15 @@ production:
   primary:
     <<: *default
     url: <%= ENV['DATABASE_URL'] %>
-    cache:
-    <<: *default
+  cache:
+    <<: *sqlite
     database: storage/production_cache.sqlite3
     migrations_paths: db/cache_migrate
   queue:
-    <<: *default
+    <<: *sqlite
     database: storage/production_queue.sqlite3
     migrations_paths: db/queue_migrate
   cable:
-    <<: *default
-    database: storage/production_cable.sqlite3
+    <<: *sqlite
+    database: /data/myapp_production_cable.sqlite3
     migrations_paths: db/cable_migrate

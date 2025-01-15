@@ -336,6 +336,14 @@ GEM
       bcrypt (~> 3.1)
       oauth (>= 0.6)
       oauth2 (~> 2.0)
+    sqlite3 (2.5.0-aarch64-linux-gnu)
+    sqlite3 (2.5.0-aarch64-linux-musl)
+    sqlite3 (2.5.0-arm-linux-gnu)
+    sqlite3 (2.5.0-arm-linux-musl)
+    sqlite3 (2.5.0-arm64-darwin)
+    sqlite3 (2.5.0-x86_64-darwin)
+    sqlite3 (2.5.0-x86_64-linux-gnu)
+    sqlite3 (2.5.0-x86_64-linux-musl)
     sshkit (1.23.2)
       base64
       net-scp (>= 1.1.2)
@@ -416,6 +424,7 @@ DEPENDENCIES
   solid_cache
   solid_queue
   sorcery
+  sqlite3 (~> 2.5)
   stimulus-rails
   tailwindcss-rails
   thruster
