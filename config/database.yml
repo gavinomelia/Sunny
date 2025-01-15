@@ -18,6 +18,4 @@ test:
 # Production database configuration
 production:
   <<: *default
-  database: your_database_name
-  username: your_database_username
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
