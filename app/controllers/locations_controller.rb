@@ -92,7 +92,7 @@ class LocationsController < ApplicationController
     location_data = fetch_location_data(address)
 
     if location_data.nil? || location_data['error']
-      handle_geocode_error(location_data)
+    flash[:alert] = "Unable to find that address. Please try again."
       return redirect_to locations_path
     end
 
@@ -100,7 +100,7 @@ class LocationsController < ApplicationController
     longitude = location_data['longt']
     location_name = location_data.dig("standard", "addresst") || location_data.dig("standard", "city") || "Unknown Address"
 
-    save_location(latitude, longitude, location_name.capitalize)
+    save_location(latitude, longitude, location_name)
     redirect_to locations_path
   end
 
@@ -137,11 +137,6 @@ class LocationsController < ApplicationController
   rescue JSON::ParserError, StandardError => e
     Rails.logger.error "Failed to fetch or parse location data: #{e.message}"
     nil
-  end
-
-  def handle_geocode_error(location_data)
-    error_message = location_data&.dig('error', 'description') || "Unable to geocode the address. Please try again."
-    flash[:alert] = "Error: #{error_message}"
   end
 
   def save_location(latitude, longitude, location_name)
