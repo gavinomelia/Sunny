@@ -1,6 +1,7 @@
 class LocationsController < ApplicationController
   require 'net/http'
   require 'json'
+  before_action :require_login
   before_action :set_location, only: [ :show, :edit, :update, :destroy, :forecast ]
 
   def index
@@ -150,6 +151,12 @@ class LocationsController < ApplicationController
       flash[:notice] = "Location successfully saved!"
     else
       flash[:alert] = "Unable to save location. #{location.errors.full_messages.to_sentence}"
+    end
+  end
+
+  def require_login
+    unless logged_in?
+      redirect_to login_path, alert: "You must be logged in to access this page."
     end
   end
 

@@ -7,9 +7,9 @@
         <% @locations.each do |location| %>
           <li class="bg-white shadow-md p-4 rounded-lg flex justify-between items-center">
             <div>
-              <strong class="text-lg"><%= location.name %></strong>
+              <%= link_to location.name, forecast_location_path(location), class: 'text-lg font-bold' %>
               <p class="text-sm text-gray-500">
-                (<%= location.latitude %>, <%= location.longitude %>)
+              (<%= location.latitude %>, <%= location.longitude %>)
               </p>
             </div>
             <div class="space-x-3">
