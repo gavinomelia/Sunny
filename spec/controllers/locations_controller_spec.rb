@@ -107,7 +107,7 @@ RSpec.describe LocationsController, type: :controller do
       allow_any_instance_of(LocationsController).to receive(:fetch_location_data).and_return(nil)
       post :geocode_address, params: { address: 'Invalid Address' }
       expect(response).to redirect_to(locations_path)
-      expect(flash[:alert]).to eq("Error: Unable to geocode the address. Please try again.")
+      expect(flash[:alert]).to eq("Unable to find that address. Please try again.")
     end
   end
 end
