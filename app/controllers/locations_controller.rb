@@ -56,8 +56,7 @@ class LocationsController < ApplicationController
     current_location = service.fetch
 
     if current_location[:success]
-      save_result = service.save(current_user, current_location)
-      flash[save_result[:success] ? :notice : :alert] = save_result[:message]
+      handle_location_save(current_location)
     else
       flash[:alert] = current_location[:error]
     end
@@ -88,6 +87,11 @@ class LocationsController < ApplicationController
   end
 
   private
+
+  def handle_location_save(location_data)
+    save_result = CurrentLocationService.new.save(current_user, location_data)
+    flash[save_result[:success] ? :notice : :alert] = save_result[:message]
+  end
 
   def generate_chart_url(forecast)
     max_temps = forecast['daily']['temperature_2m_max'].join(',')

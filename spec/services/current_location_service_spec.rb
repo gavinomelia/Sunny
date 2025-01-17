@@ -25,7 +25,7 @@ RSpec.describe CurrentLocationService, type: :service do
           latitude: 35.6895,
           longitude: 139.6917,
           city: "Tokyo",
-          state: "Tokyo"
+          region: "Tokyo"
         )
       end
     end
@@ -81,7 +81,7 @@ RSpec.describe CurrentLocationService, type: :service do
       end
 
       it "returns a failure response with error messages" do
-        expect(save_result).to eq(success: false, message: "Unable to save the location. Name can't be blank")
+        expect(save_result).to eq(success: false, error: "Unable to save the location. Name can't be blank")
       end
     end
   end
