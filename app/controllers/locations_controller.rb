@@ -51,35 +51,18 @@ class LocationsController < ApplicationController
     redirect_to locations_path, notice: "Location deleted successfully."
   end
 
-  def current_location_forecast
-    url = URI.parse('https://ipapi.co/json')
-    response = Net::HTTP.get(url)
-    location_data = JSON.parse(response)
+  def get_current_location
+    service = CurrentLocationService.new
+    current_location = service.fetch(@location.latitude, @location.longitude)
+    if current_location[:success]
+      save_result = service.save(current_user, fetch_result)
 
-    if location_data.present? && location_data["latitude"] && location_data["longitude"]
-      @latitude = location_data["latitude"]
-      @longitude = location_data["longitude"]
-      @city = location_data["city"]
-      @state = location_data["region"]
-
-      # Save the location for the current user
-      location = current_user.locations.build(
-        name: "#{@city}, #{@state}",
-        latitude: @latitude,
-        longitude: @longitude
-      )
-
-      if location.save
-        flash[:notice] = "Location successfully saved!"
-        redirect_to locations_path
-      else
-        flash[:alert] = "Unable to save the location. #{location.errors.full_messages.to_sentence}"
-        redirect_to locations_path
-      end
+      flash[save_result[:success] ? :notice : :alert] = save_result[:message]
     else
-      flash[:alert] = "Unable to determine your location. Please try again."
-      redirect_to locations_path
+      flash[:alert] = fetch_result[:error]
     end
+
+    redirect_to locations_path
   end
 
   def geocode_address
@@ -92,7 +75,7 @@ class LocationsController < ApplicationController
     location_data = fetch_location_data(address)
 
     if location_data.nil? || location_data['error']
-    flash[:alert] = "Unable to find that address. Please try again."
+      flash[:alert] = "Unable to find that address. Please try again."
       return redirect_to locations_path
     end
 

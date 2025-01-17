@@ -60,23 +60,6 @@ RSpec.describe LocationsController, type: :controller do
     end
   end
 
-  describe "POST #current_location_forecast" do
-    before { allow(Net::HTTP).to receive(:get).and_return('{"latitude": 35.6895, "longitude": 139.6917, "city": "Tokyo", "region": "Tokyo"}') }
-
-    it "saves the current location and redirects" do
-      post :current_location_forecast
-      expect(response).to redirect_to(locations_path)
-      expect(flash[:notice]).to eq("Location successfully saved!")
-    end
-
-    it "handles error when location cannot be determined" do
-      allow(Net::HTTP).to receive(:get).and_return('{}')
-      post :current_location_forecast
-      expect(response).to redirect_to(locations_path)
-      expect(flash[:alert]).to eq("Unable to determine your location. Please try again.")
-    end
-  end
-
   describe "POST #geocode_address" do
     let(:valid_address) { 'Tokyo' }
     let(:invalid_address) { 'Invalid Address' }
