@@ -56,7 +56,9 @@ class LocationsController < ApplicationController
     current_location = service.fetch
 
     if current_location[:success]
-      handle_location_save(current_location)
+      save_result = Location.create_from_data(current_user, current_location)
+
+      flash[save_result[:success] ? :notice : :alert] = save_result[:message]
     else
       flash[:alert] = current_location[:error]
     end
@@ -82,16 +84,22 @@ class LocationsController < ApplicationController
     longitude = location_data['longt']
     location_name = location_data.dig("standard", "addresst") || location_data.dig("standard", "city") || "Unknown Address"
 
-    save_location(latitude, longitude, location_name)
+    result = Location.create_from_data(current_user, {
+      latitude: latitude,
+      longitude: longitude,
+      name: location_name 
+    })
+
+    if result[:success]
+      flash[:notice] = result[:message]
+    else
+      flash[:alert] = result[:error]
+    end
+
     redirect_to locations_path
   end
 
   private
-
-  def handle_location_save(location_data)
-    save_result = CurrentLocationService.new.save(current_user, location_data)
-    flash[save_result[:success] ? :notice : :alert] = save_result[:message]
-  end
 
   def generate_chart_url(forecast)
     max_temps = forecast['daily']['temperature_2m_max'].join(',')
@@ -124,16 +132,6 @@ class LocationsController < ApplicationController
   rescue JSON::ParserError, StandardError => e
     Rails.logger.error "Failed to fetch or parse location data: #{e.message}"
     nil
-  end
-
-  def save_location(latitude, longitude, location_name)
-    location = current_user.locations.build(name: location_name, latitude: latitude, longitude: longitude)
-
-    if location.save
-      flash[:notice] = "Location successfully saved!"
-    else
-      flash[:alert] = "Unable to save location. #{location.errors.full_messages.to_sentence}"
-    end
   end
 
   def require_login
