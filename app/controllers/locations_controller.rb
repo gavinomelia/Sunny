@@ -53,13 +53,13 @@ class LocationsController < ApplicationController
 
   def get_current_location
     service = CurrentLocationService.new
-    current_location = service.fetch(@location.latitude, @location.longitude)
-    if current_location[:success]
-      save_result = service.save(current_user, fetch_result)
+    current_location = service.fetch
 
+    if current_location[:success]
+      save_result = service.save(current_user, current_location)
       flash[save_result[:success] ? :notice : :alert] = save_result[:message]
     else
-      flash[:alert] = fetch_result[:error]
+      flash[:alert] = current_location[:error]
     end
 
     redirect_to locations_path

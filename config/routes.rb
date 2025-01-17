@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get "current_location_forecast", to: "locations#current_location_forecast", as: :current_location_forecast
+  get "get_current_location", to: "locations#get_current_location", as: :get_current_location
   get 'forecast', to: 'locations#forecast', as: :forecast
 
   get "/login", to: "sessions#new", as: :login
