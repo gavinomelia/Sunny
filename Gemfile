@@ -69,6 +69,8 @@ group :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rails-controller-testing'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 gem "sqlite3", "~> 2.5"

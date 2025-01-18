@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://geocode.xyz/Invalid+Address?auth=124615673551132105404x77873&json=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - geocode.xyz
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 18 Jan 2025 16:47:47 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cflb=0H28vTE11mXeuU6nLEGMumyL4X6iAPi2yKVhqzDz3CP; SameSite=Lax; path=/;
+        expires=Sat, 25-Jan-25 16:47:47 GMT; HttpOnly
+      - xyzh=xyzh; path=/; expires=Tue, 13-Jan-2026 16:47:44 GMT
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=%2Blvtjmc4bh34t1%2F8OWBtsF0qBWjNDNQ9Wqkp3xQxuRQpQr0RdoV5uFDSX6n7KwCwiLarUtdcayyXdQ25XzHwPw1LwrJXS8uUwOspLrqptk5qwQTHGtpW3cPWw3bB"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9040118dba6c0801-IAD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Server-Timing:
+      - cfL4;desc="?proto=TCP&rtt=20198&min_rtt=16376&rtt_var=7782&sent=5&recv=7&lost=0&retrans=0&sent_bytes=2978&recv_bytes=804&delivery_rate=166580&cwnd=178&unsent_bytes=0&cid=74bde38de8ca9318&ts=3236&x=0"
+    body:
+      encoding: ASCII-8BIT
+      string: '{   "longt" : "0.00000",   "matches" : null,   "remaining_credits"
+        : {},   "error" : {      "description" : "7. Your request did not produce
+        any results.",      "code" : "008"   },   "suggestion" : {      "region" :
+        {},      "locate" : {}   },   "latt" : "0.00000"}'
+  recorded_at: Sat, 18 Jan 2025 16:47:46 GMT
+recorded_with: VCR 6.3.1

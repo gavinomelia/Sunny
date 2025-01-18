@@ -18,4 +18,3 @@ class Location < ApplicationRecord
     end
   end
 end
-

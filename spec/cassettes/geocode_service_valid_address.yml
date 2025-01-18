@@ -1,0 +1,59 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://geocode.xyz/117+William+St%0AEffingham,+Kansas,+66023?auth=124615673551132105404x77873&json=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - geocode.xyz
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 18 Jan 2025 16:47:44 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cflb=0H28vTE11mXeuU6nLEGMumyL4X6iAPhxYQNWU6UN4Fu; SameSite=Lax; path=/;
+        expires=Sat, 25-Jan-25 16:47:44 GMT; HttpOnly
+      - xyzh=xyzh; path=/; expires=Tue, 13-Jan-2026 16:47:38 GMT
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - DYNAMIC
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=jpNV4%2BRIOerSHvAH57qeLNUO1mPoiDR3xOfoqaIiUKLVz%2Fkdk0%2B%2F24Fh2SIYxd3PqYAGp%2BJ3oRx%2FxgfEd0XKLR8wpgNnXpdZEw9qWI6GZsoyAxhyjSdgi%2B2vLJh%2B"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9040116aff538bb8-ATL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Server-Timing:
+      - cfL4;desc="?proto=TCP&rtt=24789&min_rtt=24072&rtt_var=7433&sent=5&recv=7&lost=0&retrans=0&sent_bytes=2977&recv_bytes=834&delivery_rate=110534&cwnd=230&unsent_bytes=0&cid=4de9845756eb08b8&ts=5464&x=0"
+    body:
+      encoding: ASCII-8BIT
+      string: '{   "standard" : {      "stnumber" : "117",      "addresst" : "WILLIAM
+        ST",      "statename" : "KS",      "postal" : "66023",      "region" : "KS",      "prov"
+        : "US",      "city" : "Effingham",      "countryname" : "United States of
+        America",      "confidence" : "1.00"   },   "longt" : "-95.40083",   "alt"
+        : {},   "elevation" : {},   "remaining_credits" : "-37",   "latt" : "39.51776"}'
+  recorded_at: Sat, 18 Jan 2025 16:47:43 GMT
+recorded_with: VCR 6.3.1

@@ -59,26 +59,5 @@ RSpec.describe LocationsController, type: :controller do
       expect(flash[:notice]).to eq("Location deleted successfully.")
     end
   end
-
-  describe "POST #geocode_address" do
-    let(:valid_address) { 'Tokyo' }
-    let(:invalid_address) { 'Invalid Address' }
-
-    before { allow_any_instance_of(LocationsController).to receive(:fetch_location_data) }
-
-    it "geocodes a valid address and redirects to locations path" do
-      allow_any_instance_of(LocationsController).to receive(:fetch_location_data).and_return({ 'latt' => 35.6895, 'longt' => 139.6917, 'standard' => { 'addresst' => valid_address } })
-      post :geocode_address, params: { address: valid_address }
-      expect(response).to redirect_to(locations_path)
-      expect(flash[:notice]).to eq("Location successfully saved!")
-    end
-
-    it "shows an error when geocoding fails" do
-      allow_any_instance_of(LocationsController).to receive(:fetch_location_data).and_return(nil)
-      post :geocode_address, params: { address: invalid_address }
-      expect(response).to redirect_to(locations_path)
-      expect(flash[:alert]).to eq("Unable to find that address. Please try again.")
-    end
-  end
-end
+ end
 

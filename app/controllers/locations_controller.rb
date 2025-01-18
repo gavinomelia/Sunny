@@ -68,34 +68,22 @@ class LocationsController < ApplicationController
 
   def geocode_address
     address = params[:address]
-    if address.blank?
-      flash[:alert] = "Please provide a valid address."
+
+    geocode_service = GeocodeService.new(address)
+    location_result = geocode_service.fetch_location_data
+
+    unless location_result[:success]
+      flash[:alert] = location_result[:error]
       return redirect_to locations_path
     end
-
-    location_data = fetch_location_data(address)
-
-    if location_data.nil? || location_data['error']
-      flash[:alert] = "Unable to find that address. Please try again."
-      return redirect_to locations_path
-    end
-
-    latitude = location_data['latt']
-    longitude = location_data['longt']
-    location_name = location_data.dig("standard", "addresst") || location_data.dig("standard", "city") || "Unknown Address"
 
     result = Location.create_from_data(current_user, {
-      latitude: latitude,
-      longitude: longitude,
-      name: location_name 
+      latitude: location_result[:latitude],
+      longitude: location_result[:longitude],
+      name: location_result[:name]
     })
 
-    if result[:success]
-      flash[:notice] = result[:message]
-    else
-      flash[:alert] = result[:error]
-    end
-
+    flash[result[:success] ? :notice : :alert] = result[:message]
     redirect_to locations_path
   end
 
@@ -123,15 +111,6 @@ class LocationsController < ApplicationController
     }
 
     "#{base_url}?#{query_params.to_query}"
-  end
-
-  def fetch_location_data(address)
-    api_url = URI("https://geocode.xyz/#{URI.encode_www_form_component(address)}?json=1&auth=#{Rails.application.credentials.geocode_api_key}")
-    response = Net::HTTP.get(api_url)
-    JSON.parse(response)
-  rescue JSON::ParserError, StandardError => e
-    Rails.logger.error "Failed to fetch or parse location data: #{e.message}"
-    nil
   end
 
   def require_login
