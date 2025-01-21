@@ -73,7 +73,7 @@ class LocationsController < ApplicationController
 
     unless location_result[:success]
       flash[:alert] = location_result[:error]
-      return redirect_to locations_path
+      return redirect_to new_location_path
     end
 
     result = Location.create_from_data(current_user, {
