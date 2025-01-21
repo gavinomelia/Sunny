@@ -3,6 +3,6 @@ FactoryBot.define do
     name { "Sample Location" }
     latitude { 35.6895 }
     longitude { 139.6917 }
-    association :user
+    user
   end
 end

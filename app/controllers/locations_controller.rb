@@ -5,7 +5,6 @@ class LocationsController < ApplicationController
   before_action :set_location, only: [ :show, :edit, :update, :destroy, :forecast ]
 
   def index
-    return redirect_to :login unless logged_in?
     @locations = current_user.locations
   end
 

@@ -1,4 +1,3 @@
-# app/services/forecast_service.rb
 require 'net/http'
 require 'json'
 
