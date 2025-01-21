@@ -1,6 +1,9 @@
 module SorceryHelpers
-  def login_as(user)
-    page.driver.post(login_path, params: { email: user.email, password: user.password })
+  def login_user(user)
+    visit login_path
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: 'password123' 
+    click_button 'Login'
   end
 end
 
