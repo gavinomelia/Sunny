@@ -20,6 +20,16 @@ RSpec.describe Location, type: :model do
       expect(location).to be_invalid
     end
 
+      it 'is invalid without a latitude' do
+      location = build(:location, user: user, latitude: nil)
+      expect(location).not_to be_valid
+    end
+
+    it 'is invalid without a longitude' do
+      location = build(:location, user: user, longitude: nil)
+      expect(location).not_to be_valid
+    end
+
     it "is invalid with a latitude out of range" do
       location = Location.new(name: "Park", latitude: 100.0, longitude: -74.0060, user: user)
       expect(location).to be_invalid
