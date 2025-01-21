@@ -1,0 +1,36 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.open-meteo.com/v1/forecast?current=temperature_2m,precipitation&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&latitude=35.6895&longitude=139.6917&temperature_unit=fahrenheit&timezone=America/New_York
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.open-meteo.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 21 Jan 2025 15:27:53 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJsYXRpdHVkZSI6MzUuNywibG9uZ2l0dWRlIjoxMzkuNjg3NSwiZ2VuZXJhdGlvbnRpbWVfbXMiOjAuMDcwNDUyNjkwMTI0NTExNzIsInV0Y19vZmZzZXRfc2Vjb25kcyI6LTE4MDAwLCJ0aW1lem9uZSI6IkFtZXJpY2EvTmV3X1lvcmsiLCJ0aW1lem9uZV9hYmJyZXZpYXRpb24iOiJHTVQtNSIsImVsZXZhdGlvbiI6NDAuMCwiY3VycmVudF91bml0cyI6eyJ0aW1lIjoiaXNvODYwMSIsImludGVydmFsIjoic2Vjb25kcyIsInRlbXBlcmF0dXJlXzJtIjoiwrBGIiwicHJlY2lwaXRhdGlvbiI6Im1tIn0sImN1cnJlbnQiOnsidGltZSI6IjIwMjUtMDEtMjFUMTA6MTUiLCJpbnRlcnZhbCI6OTAwLCJ0ZW1wZXJhdHVyZV8ybSI6NDIuMywicHJlY2lwaXRhdGlvbiI6MC4wMH0sImRhaWx5X3VuaXRzIjp7InRpbWUiOiJpc284NjAxIiwidGVtcGVyYXR1cmVfMm1fbWF4IjoiwrBGIiwidGVtcGVyYXR1cmVfMm1fbWluIjoiwrBGIiwicHJlY2lwaXRhdGlvbl9wcm9iYWJpbGl0eV9tYXgiOiIlIn0sImRhaWx5Ijp7InRpbWUiOlsiMjAyNS0wMS0yMSIsIjIwMjUtMDEtMjIiLCIyMDI1LTAxLTIzIiwiMjAyNS0wMS0yNCIsIjIwMjUtMDEtMjUiLCIyMDI1LTAxLTI2IiwiMjAyNS0wMS0yNyJdLCJ0ZW1wZXJhdHVyZV8ybV9tYXgiOls1My4yLDUyLjEsNTIuNCw1NS4wLDUxLjgsNTEuOSw1Ny4yXSwidGVtcGVyYXR1cmVfMm1fbWluIjpbMzYuNCwzNC4zLDM1LjgsNDMuMiwzOC4yLDMzLjgsNDEuM10sInByZWNpcGl0YXRpb25fcHJvYmFiaWxpdHlfbWF4IjpbMywwLDgsMTYsNiw3LDg4XX19
+  recorded_at: Tue, 21 Jan 2025 15:27:53 GMT
+recorded_with: VCR 6.3.1

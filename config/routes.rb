@@ -12,8 +12,6 @@ Rails.application.routes.draw do
   end
 
   get "get_current_location", to: "locations#get_current_location", as: :get_current_location
-  get 'forecast', to: 'locations#forecast', as: :forecast
-
   get "/login", to: "sessions#new", as: :login
   post "/login", to: "sessions#create"
   get "/logout", to: "sessions#destroy", as: :logout
