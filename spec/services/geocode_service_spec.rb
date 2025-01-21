@@ -13,7 +13,7 @@ Effingham, Kansas, 66023" }
           expect(result[:success]).to eq(true)
           expect(result[:latitude]).to eq("39.51776")
           expect(result[:longitude]).to eq("-95.40083")
-          expect(result[:name]).to eq("WILLIAM ST")
+          expect(result[:name]).to eq("William St")
         end
       end
     end

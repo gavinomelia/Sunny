@@ -21,7 +21,7 @@ class GeocodeService
         success: true,
         latitude: location_data['latt'],
         longitude: location_data['longt'],
-        name: location_data.dig("standard", "addresst") || location_data.dig("standard", "city") || "Unknown Address"
+        name: location_data.dig("standard", "addresst").titleize || location_data.dig("standard", "city").titleize || "Unknown Address"
       }
     end
   rescue JSON::ParserError, StandardError => e
